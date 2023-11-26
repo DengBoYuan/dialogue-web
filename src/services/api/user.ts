@@ -6,7 +6,7 @@ export async function queryAllUserList(
     },
     options?: { [key: string]: any },
   ) {
-    return request<API.Result_PageInfo_UserInfo__>('http://localhost:8080/user/all', {
+    return request<API.Result_PageInfo_UserInfo__>('/user/all', {
       method: 'GET',
       params: {
         ...params,

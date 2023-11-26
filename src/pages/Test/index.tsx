@@ -4,6 +4,7 @@ import { ProTable, TableDropdown } from '@ant-design/pro-components';
 import { Button, Dropdown, Space, Tag } from 'antd';
 import { useRef } from 'react';
 import { request } from '@umijs/max';
+import {queryAllUserList} from '@/services/api/user';
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -148,6 +149,22 @@ const columns: ProColumns<GithubIssueItem>[] = [
 
 const Test: React.FC = () => {
   const actionRef = useRef<ActionType>();
+  const func = async () => {
+    const msg = await queryAllUserList({}) as API.ResponseParams;
+    if (msg.code === 200) {
+      console.log(msg.data);
+      // for (let i = 0; i < msg.data.list.length; i++) {
+      //   if (currentUser?.role_name !== 'super' && (msg.data.list[i].role_name === 'super' || msg.data.list[i].role_name === 'admin')) {
+      //     continue
+      //   }
+      //   obj[msg.data.list[i].id] = {
+      //     text: msg.data.list[i].role_name, status: msg.data.list[i].id,
+      //   }
+      // }
+    }
+  }; 
+  func();
+
   return (
     <ProTable<GithubIssueItem>
       columns={columns}

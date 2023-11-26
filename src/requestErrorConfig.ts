@@ -33,7 +33,7 @@ interface ResponseStructure {
  */
 export const errorConfig: RequestConfig = {
   // 设置全局寄出请求域名
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "http://127.0.0.1:8080",
   withCredentials: true,
 
 
@@ -131,91 +131,27 @@ export const errorConfig: RequestConfig = {
     async (response) => {
       // 拦截响应数据，进行个性化处理
       const { data } = response as API.ResponseParams;
-      if (data.code === 20001 || data.code === 20002) {
-        const config = response.config
-        // if (!isRefreshing) {
-        //   isRefreshing = true
-        //   try {
-        //     await refreshToken().then((result) => {
-        //       if (result.code === 200 && result.msg === "ok") {
-        //         localStorage.setItem('at', result.data.access_token)
-        //         localStorage.setItem('rt', result.data.refresh_token)
-        //         console.log("放假啦是否")
-        //       }
-        //     })
-        //     console.log("阿帆数控刀具阿斯蒂芬")
-            
-        //     // 已经刷新了token，将所有队列中的请求进行重试
-        //     console.log(retryRequests.length)
-        //     retryRequests.forEach(cb => cb())
-        //     // 重试完清空这个队列
-        //     retryRequests = []
-
-        //     let body = '{}'
-        //     // 这边不需要baseURL是因为会重新请求url，url中已经包含baseURL的部分了
-        //     if (config.method === 'post' || config.method === 'put') {
-        //       body = qs.parse(config.data)
-        //     }
-        //     isRefreshing = false
-        //     return request<{
-        //       data: API.ResponseParams;
-        //     }>(config.url, {
-        //       method: config.method,
-        //       credentials:'include',
-        //       params: config.params,
-        //       data: body,
-        //     })
-        //   } catch (error) {
-        //       isRefreshing = false
-        //   }
-        // } else {
-        //   return new Promise((resolve) => {
-        //     // 将resolve放进队列，用一个函数形式来保存，等token刷新后直接执行
-        //     retryRequests.push(() => {
-        //       let body = '{}'
-        //       if (config.method === 'post' || config.method === 'put') {
-        //           body = qs.parse(config.data)
-        //       }
-
-        //       resolve(request<{
-        //         data: API.ResponseParams;
-        //       }>(config.url, {
-        //         method: config.method,
-        //         credentials:'include',
-        //         params: response.config.params,
-        //         data: body,
-        //       }))
-        //     })
-        //   })
-        // }
+      // if (data.code === 20001 || data.code === 20002) {
+      //   const config = response.config
         
-        const refreshRes = await refreshToken() as API.ResponseParams
-        if (refreshRes.code === 200) {
-          localStorage.setItem('at', refreshRes.data.access_token)
-          localStorage.setItem('rt', refreshRes.data.refresh_token)
+      //   // const refreshRes = await refreshToken() as API.ResponseParams
+      //   // if (refreshRes.code === 200) {
+      //   //   localStorage.setItem('at', refreshRes.data.access_token)
+      //   //   localStorage.setItem('rt', refreshRes.data.refresh_token)
           
-          response.data = await request<{
-            data: API.ResponseParams;
-          }>(config.url, {
-            method: config.method,
-            credentials:'include',
-            params: config.params,
-            data: config.data,
-          })
-        }
+      //   //   response.data = await request<{
+      //   //     data: API.ResponseParams;
+      //   //   }>(config.url, {
+      //   //     method: config.method,
+      //   //     credentials:'include',
+      //   //     params: config.params,
+      //   //     data: config.data,
+      //   //   })
+      //   // }
         
-        // return response;
-        
-        // // console.log(response.config.headers.Authorization)
-        // 二进制流文件下载
-        // if (response.headers['content-type'] === "application/octet-stream;charset=UTF-8") {
-        //     return response;
-        // } else {
-        //     return response.data;
-        // }
-      } else if (data.code !== 200) {
-        message.error(responseCodeMsg(getLocale(), data.code))
-      }
+      // } else if (data.code !== 200) {
+      //   message.error(responseCodeMsg(getLocale(), data.code))
+      // }
 
       return response;
       //  else if (data.code !== 200) {
