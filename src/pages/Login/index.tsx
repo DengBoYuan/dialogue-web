@@ -1,7 +1,5 @@
 import { Footer, CaptchaInput } from '@/components';
-import { login } from '@/services/api/auth';
-import { getFakeCaptcha } from '@/services/api/login';
-import { captchaVerify } from '@/services/api/auth'
+import { login, getFakeCaptcha, captchaVerify } from '@/services/api/auth';
 import {
   LockOutlined,
   MobileOutlined,
